@@ -1,37 +1,31 @@
 package tn.esprit.spring.entity;
 import lombok.*;
+
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.util.Date;
-
-@Entity
-@Table( name ="Contrat")
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Contrat  implements Serializable {
+@Entity
+@Table( name ="Contrat")
+public class Contrat implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name="idContrat")
     private Long idContrat; // Clé primaire
-
     @Temporal(TemporalType.DATE)
-    private Date datedeb;
-
-    @Temporal(TemporalType.DATE)
-    private Date datefin;
-
+    private Date dateDebutContrat;
+    private Date dateFinContrat;
     private Boolean archive;
-    private Long montantContrat ;
-
+    private Integer montatContrat;
     @Enumerated(EnumType.STRING)
-    Specialite specialite ;
+    private Specialite specialite ;
 
     @ManyToOne
     Etudiant etudiant;
 
+    }
 
-
-
-}

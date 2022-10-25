@@ -1,29 +1,30 @@
 package tn.esprit.spring.entity;
 import lombok.*;
+
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table( name ="Equipe")
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Equipe implements Serializable {
+@Entity
+@Table( name ="Equipe")
+public class Equipe implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name="idEquipe")
     private Long idEquipe; // Clé primaire
-
     private String nomEquipe;
-
     @Enumerated(EnumType.STRING)
-    Niveau niveau ;
+    private Niveau niveau ;
 
-    @ManyToMany(mappedBy = "equipes")
-    private Set<Etudiant> etudiants;
+    @ManyToMany(mappedBy="equipes")
+    private Set<Etudiant> etudiantEquipe;
 
     @OneToOne
-    private DetailEquipe detailEquipel;
+    private DetailEquipe equipeDetail;
 }

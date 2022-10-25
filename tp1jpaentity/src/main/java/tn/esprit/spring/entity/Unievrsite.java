@@ -1,24 +1,24 @@
 package tn.esprit.spring.entity;
 import lombok.*;
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.util.Set;
 
-@Entity
-@Table( name ="Universite")
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Universite implements Serializable {
+@Entity
+@Table( name ="Unievrsite")
+public class Unievrsite  implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name="idUniversite")
-    private Long idUniversite; // Clé primaire
+    @Column(name="idUniv")
+    private Long idUniv; // Clé primaire
 
     private String nomUniv;
 
-    @OneToMany
-    private Set<Departement> departements;
-
+    @OneToMany()
+    private Set<Departement> depart;
 }
