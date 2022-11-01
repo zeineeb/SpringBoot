@@ -1,19 +1,18 @@
 
 package tn.esprit.spring.entity;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-@Getter
-@Setter
-@Slf4j
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table( name ="Etudiant")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Etudiant implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -22,19 +21,16 @@ public class Etudiant implements Serializable {
     private String prenomE;
     private String nomE;
     @Enumerated(EnumType.STRING)
-    private Option opt ;
-
+    Option opt ;
 
 // Constructeur et accesseurs (getters) et mutateurs (setters)
 
-
     @OneToMany( mappedBy="etudiant")
     private Set<Contrat> contrat;
+    @ManyToMany
+    private Set<Equipe> equipes;
 
     @ManyToOne
     Departement departement;
 
-    @ManyToMany()
-    private Set<Equipe> equipes;
 }
-
