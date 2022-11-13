@@ -40,7 +40,7 @@ IEtudiantService etudiantService;
 
     @DeleteMapping("/deleteEtudiant/{etudiant-id}")
     @ResponseBody
-    public void deleteEtudiant(@PathVariable("etudiant-id") Integer etudiantId ) {
+    public void deleteEtudiant(@PathVariable("etudiant-id") Long etudiantId ) {
         etudiantService.deleteEtudiant(etudiantId);
     }
     @PutMapping(value = "/affectationEtudiant_dep/{etud-id}/{dep-id}")
