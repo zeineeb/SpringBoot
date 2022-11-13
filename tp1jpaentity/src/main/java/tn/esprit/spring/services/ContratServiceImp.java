@@ -5,8 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Contrat;
 
+import tn.esprit.spring.entity.Etudiant;
 import tn.esprit.spring.repositories.ContratRepository;
+import tn.esprit.spring.repositories.EtudiantRepository;
 
+import java.util.Date;
 import java.util.Optional;
 @Service
 @Slf4j
@@ -14,6 +17,8 @@ public class ContratServiceImp implements IContratService{
 
     @Autowired
     ContratRepository contratRepository;
+    @Autowired
+    EtudiantRepository etudiantRepository;
 
     public Long ajouter_contrat(Contrat c) {
         contratRepository.save(c);
@@ -35,6 +40,28 @@ public class ContratServiceImp implements IContratService{
 
     @Override
     public Contrat updateContrat(Contrat c) {return contratRepository.save(c);}
+    @Override
+    public Contrat retrieveContrat(Long idContrat) {
+        return contratRepository.findById(idContrat).get();
+    }
 
+    @Override
+    public Contrat affectContratToEtudiant(Contrat ce, String nomE, String prenomE) {
+        Etudiant etudiant = etudiantRepository.findByNomEAndPrenomE(nomE, prenomE);
+        if (etudiant != null) {
+            int nombreContratActif = 0;
+            for (Contrat contrat : etudiant.getContrat()) {
+                if (contrat.getArchive() == true)
+                    nombreContratActif++;
+            }
+            if (nombreContratActif < 5) {
+                ce.setEtudiant(etudiant);
+                ce.setArchive(true);
+                updateContrat(ce);
+            }
+        }
+        return ce;
+    }
 
+    
 }

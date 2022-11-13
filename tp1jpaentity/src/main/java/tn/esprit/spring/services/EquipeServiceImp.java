@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Equipe;
 import tn.esprit.spring.repositories.EquipeRepository;
 
-import java.util.Optional;
-
 @Service
 @Slf4j
 public class EquipeServiceImp implements IEquipeService{
@@ -25,15 +23,16 @@ public class EquipeServiceImp implements IEquipeService{
     public Iterable<Equipe> retrieveAllEquipe() {return equipeRepository.findAll();}
 
     @Override
-    public Optional< Equipe > findEquipeById(Long id) {
-        return equipeRepository.findById(id);
-    }
-
-    @Override
-    public void deleteEquipe(long id) {
+    public void deleteEquipe(Long id) {
         equipeRepository.deleteById(id);}
 
     @Override
     public Equipe updateEquipe(Equipe e) {return equipeRepository.save(e);}
+
+    @Override
+    public Equipe retrieveEquipe(Long idEquipe) {
+        return equipeRepository.findById(idEquipe).get();
+    }
+
 
 }

@@ -1,4 +1,5 @@
 package tn.esprit.spring.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,13 +22,11 @@ public class Contrat  implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date datefin;
-
     private Boolean archive;
     private Long montantContrat ;
-
     @Enumerated(EnumType.STRING)
     Specialite specialite ;
-
+    @JsonIgnore
     @ManyToOne
     Etudiant etudiant;
 

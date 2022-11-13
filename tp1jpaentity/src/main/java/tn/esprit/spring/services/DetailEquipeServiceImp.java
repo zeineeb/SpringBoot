@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.DetailEquipe;
+import tn.esprit.spring.entity.Etudiant;
 import tn.esprit.spring.repositories.DetailEquipeRepository;
 
 
@@ -36,5 +37,10 @@ public class DetailEquipeServiceImp implements IDetailEquipe {
 
     @Override
     public DetailEquipe updateDetailEquipe(DetailEquipe d) {return detailEquipeRepository.save(d);}
+
+    @Override
+    public DetailEquipe retrieveDetailEquipe(Long idDetailEquipe) {
+        return detailEquipeRepository.findById(idDetailEquipe).get();
+    }
 
 }

@@ -36,7 +36,13 @@ public class UniversiteController {
 
     @DeleteMapping("/deleteUniversite/{universite-id}")
     @ResponseBody
-    public void deleteUniversite(@PathVariable("universite-id") Integer universiteId ) {
+    public void deleteUniversite(@PathVariable("universite-id") Long universiteId ) {
         iUniversiteService.deleteUniversite(universiteId);
+    }
+
+    @PutMapping(value = "/affectationUni_dep/{Uni-id}/{dep-id}")
+    public void affectationUniversiteDepartement(@PathVariable("Uni-id") Long UniId ,@PathVariable("dep-id") Long depId )
+    {
+        iUniversiteService.assignUniversiteToDepartement(UniId,depId);
     }
 }

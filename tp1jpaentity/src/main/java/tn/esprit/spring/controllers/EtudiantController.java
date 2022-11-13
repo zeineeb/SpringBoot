@@ -1,6 +1,7 @@
 package tn.esprit.spring.controllers;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,21 @@ IEtudiantService etudiantService;
     public void deleteEtudiant(@PathVariable("etudiant-id") Integer etudiantId ) {
         etudiantService.deleteEtudiant(etudiantId);
     }
+    @PutMapping(value = "/affectationEtudiant_dep/{etud-id}/{dep-id}")
+    public void affectationEtudiantDepartement(@PathVariable("etud-id") Long etudId ,@PathVariable("dep-id") Long depId )
+    {
+        etudiantService.assignEtudiantDepartement(etudId,depId);
+    }
+
+    @PostMapping (value = "/affectationEtudiant_contrat_equipe/{contrat-id}/{equipe-id}")
+    @ResponseBody
+    public Etudiant affectationEtudiantContratEquipe( @RequestBody Etudiant etudiant ,@PathVariable("contrat-id") Long contratId ,@PathVariable("equipe-id") Long equipeId )
+    {
+        Etudiant etudiant1 = etudiantService.AddAssignEtudiantToEquipeAndContrat(etudiant,contratId,equipeId );
+        return etudiant1;
+    }
+
+
 }
 
 

@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entity.Equipe;
 import tn.esprit.spring.services.IEquipeService;
 
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/EquipeC")
@@ -18,25 +16,27 @@ public class EquipeController {
     public Iterable<Equipe>  GetAllEquipe(){
         return iEquipeService.retrieveAllEquipe();
     }
-    @GetMapping("/EquipeById/{equipe-id}")
-    public Optional< Equipe > GetEquipebyId(@PathVariable("equipe-id") Long Id){
-        return iEquipeService.findEquipeById(Id);
-    }
+
     @PostMapping("/addEquipe")
     @ResponseBody
     public void addEquipe(@RequestBody Equipe equipe) {
         iEquipeService.ajouterEquipe(equipe);
     }
 
-    @PutMapping("/updateEquipe")
+    @GetMapping("/retrieve-equipe/{equipe-id}")
+    public Equipe retrieveEquipe(@PathVariable("equipe-id") Long equipeId) {
+        return iEquipeService.retrieveEquipe(equipeId);
+    }
+
+        @PutMapping("/updateEquipe")
     @ResponseBody
     public void updateEquipe(@RequestBody Equipe equipe) {
         iEquipeService.updateEquipe(equipe);
     }
 
-    @DeleteMapping("/deleteEquipe/{equipe-id}}")
+    @DeleteMapping("/deleteEquipe/{equipe-id}")
     @ResponseBody
-    public void deleteEquipe(@PathVariable("equipe-id}") Integer equipeId ) {
+    public void deleteEquipe(@PathVariable("equipe-id") Long equipeId ) {
         iEquipeService.deleteEquipe(equipeId);
     }
 }

@@ -1,8 +1,15 @@
 package tn.esprit.spring.entity;
-import lombok.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
+
 
 @Entity
 @Table( name ="Equipe")
@@ -12,18 +19,16 @@ import java.util.Set;
 @AllArgsConstructor
 public class Equipe implements Serializable {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idEquipe")
     private Long idEquipe; // Clé primaire
-
     private String nomEquipe;
-
     @Enumerated(EnumType.STRING)
-    Niveau niveau ;
-
-    @ManyToMany(mappedBy = "equipes")
+    private Niveau niveau;
+    @JsonIgnore
+    @ManyToMany
     private Set<Etudiant> etudiants;
 
-    @OneToOne
-    private DetailEquipe detailEquipel;
+   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private DetailEquipe detailEquipe;
 }

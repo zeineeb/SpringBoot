@@ -1,4 +1,5 @@
 package tn.esprit.spring.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public class Departement implements Serializable {
     private String nomDepart;
 
     @OneToMany( mappedBy="departement")
+    @JsonIgnore
     private Set<Etudiant> etudiants;
 
 }

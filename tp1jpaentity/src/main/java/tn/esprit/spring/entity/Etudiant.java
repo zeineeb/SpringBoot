@@ -1,10 +1,12 @@
 
 package tn.esprit.spring.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,7 +29,8 @@ public class Etudiant implements Serializable {
 
     @OneToMany( mappedBy="etudiant")
     private Set<Contrat> contrat;
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "etudiants")
     private Set<Equipe> equipes;
 
     @ManyToOne

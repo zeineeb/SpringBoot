@@ -39,7 +39,7 @@ public class DepartementController {
 
     @DeleteMapping("/deleteDepartement/{departement-id}")
     @ResponseBody
-    public void deleteEtudiant(@PathVariable("departement-id") Integer departementId ) {
+    public void deleteEtudiant(@PathVariable("departement-id") Long departementId ) {
         iDepartementService.deleteDepartement(departementId);
     }
 }
