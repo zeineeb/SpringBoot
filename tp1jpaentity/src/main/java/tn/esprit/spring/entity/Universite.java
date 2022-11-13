@@ -21,4 +21,7 @@ public class Universite implements Serializable {
     @OneToMany
     private Set<Departement> departements;
 
+    @OneToMany( mappedBy="universites")
+    private Set<Partenaire> partenaires;
+
 }

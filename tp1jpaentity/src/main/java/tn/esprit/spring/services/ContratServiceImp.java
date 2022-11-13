@@ -63,5 +63,8 @@ public class ContratServiceImp implements IContratService{
         return ce;
     }
 
-    
+@Override
+public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate){
+        return  contratRepository.getcontratmontantBetween(startDate,endDate);
+}
 }

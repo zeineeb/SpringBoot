@@ -14,6 +14,7 @@ public interface IContratService {
     public void deleteContrat(long id);
     Contrat updateContrat(Contrat c);
     Contrat retrieveContrat (Long idContrat);
-    Contrat affectContratToEtudiant (Contrat ce, String nomE,String prenomE);
+   public Contrat affectContratToEtudiant (Contrat ce, String nomE,String prenomE);
+    public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate)
     ;
 }

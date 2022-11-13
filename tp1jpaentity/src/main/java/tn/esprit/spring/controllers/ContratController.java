@@ -3,9 +3,11 @@ package tn.esprit.spring.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entity.Contrat;
+import tn.esprit.spring.entity.Equipe;
 import tn.esprit.spring.services.IContratService;
 
 
+import java.sql.Date;
 import java.util.Optional;
 
 @RestController
@@ -37,7 +39,12 @@ public class ContratController {
 
     @DeleteMapping("/deleteContrat/{contrat-id}")
     @ResponseBody
-    public void deleteContrat(@PathVariable("contrat-id") Integer ContratId ) {
+    public void deleteContrat(@PathVariable("contrat-id") Long ContratId ) {
         iContratService.deleteContrat(ContratId);
+    }
+
+    @GetMapping("/Get-Date/{dateDebut}/{dateFin}")
+    public float GetDateBetween(@PathVariable("dateDebut") Date DateDebut,@PathVariable("dateFin") Date DateFin) {
+        return iContratService.getChiffreAffaireEntreDeuxDate(DateDebut,DateFin);
     }
 }
