@@ -18,4 +18,5 @@ public interface IUniversiteService {
     public void assignUniversiteToDepartement(Long idUniversite, Long idDepartement);
     public Set<Departement> retrieveDepartementsByUniversite(Long idUniversite);
     public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate);
+    public Universite findUnivByEmail(String email);
 }

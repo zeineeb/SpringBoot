@@ -1,8 +1,12 @@
 package tn.esprit.spring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entity.Universite;
+import tn.esprit.spring.repositories.UniversiteRepository;
 import tn.esprit.spring.services.IUniversiteService;
 
 import java.util.Optional;
@@ -13,6 +17,8 @@ import java.util.Optional;
 public class UniversiteController {
     @Autowired
     IUniversiteService iUniversiteService;
+    @Autowired
+    UniversiteRepository universiteRepository;
 
     @GetMapping("/")
     public Iterable<Universite>  GetAllUniversite(){
@@ -44,5 +50,19 @@ public class UniversiteController {
     public void affectationUniversiteDepartement(@PathVariable("Uni-id") Long UniId ,@PathVariable("dep-id") Long depId )
     {
         iUniversiteService.assignUniversiteToDepartement(UniId,depId);
+    }
+
+    @GetMapping
+    Page<Universite> SortUniversite(
+            @RequestParam Optional<Integer> page,
+            @RequestParam Optional<String> sortBy
+    ) {
+        return universiteRepository.findAll(
+                PageRequest.of(
+                        page.orElse(0),
+                        5,
+                        Sort.Direction.ASC, sortBy.orElse("id")
+                )
+        );
     }
 }

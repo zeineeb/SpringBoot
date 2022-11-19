@@ -67,4 +67,12 @@ public class UniversiteServiceImp implements IUniversiteService {
     public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate){
         return 0;
     }
+
+    public Universite findUnivByEmail(String email) {
+
+        return universiteRepository.findByEmail(email);
+
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package tn.esprit.spring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entity.Equipe;
 import tn.esprit.spring.entity.Etudiant;
@@ -8,6 +10,8 @@ import tn.esprit.spring.entity.Partenaire;
 import tn.esprit.spring.services.IpartenaireService;
 import tn.esprit.spring.services.PartenaireServiceImp;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -45,9 +49,22 @@ public class PartenaireController {
         ipartenaireService.deletePartenaire(PartenairetId);
     }
     @PutMapping(value = "/affectationPartenaire_univer/{Par-id}/{uni-id}")
-    public void affectationPartenaireUniversite(@PathVariable("Par-id}") Long partId ,@PathVariable("uni-id}") Long UniId )
+    public void affectationPartenaireUniversite(@PathVariable("Par-id") Long partId ,@PathVariable("uni-id") Long UniId )
     {
         ipartenaireService.assignPartenaireToUniversite(partId,UniId);
+    }
+
+    @GetMapping("/retrieve-all-partenaire-stats")
+    @ResponseBody
+    public Map<String, Integer> statistiqueProduit() {
+        Map<String, Integer> listPatenaire = ipartenaireService.statistiquePartenaire();
+        return listPatenaire;
+    }
+
+    @GetMapping("/search")
+    public List<Partenaire> viewHomePage( String keyword) {
+        List<Partenaire> listPatenaire = ipartenaireService.search(keyword);
+return listPatenaire;
     }
 
 }

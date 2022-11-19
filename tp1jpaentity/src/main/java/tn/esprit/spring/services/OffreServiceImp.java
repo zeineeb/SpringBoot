@@ -2,15 +2,27 @@ package tn.esprit.spring.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.spring.entity.Departement;
-import tn.esprit.spring.entity.Etudiant;
 import tn.esprit.spring.entity.Offre;
 import tn.esprit.spring.entity.Partenaire;
+import tn.esprit.spring.entity.Universite;
+import tn.esprit.spring.model.MailRequest;
 import tn.esprit.spring.repositories.OffreRepository;
 import tn.esprit.spring.repositories.PartenaireRepository;
+import tn.esprit.spring.repositories.UniversiteRepository;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.security.PublicKey;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -19,12 +31,33 @@ public class OffreServiceImp implements IoffreService{
 
     OffreRepository offreRepository;
     PartenaireRepository partenaireRepository;
+ UniversiteRepository universiteRepository;
+    EmailService emailService;
+    JavaMailSender emailSender;
 
-    @Override
-    public Long ajouterOffre(Offre o) {
+
+
+    public Long ajouterOffre(Offre o ) {
+
         offreRepository.save(o);
         log.info("Ajouter Offre");
-        return o.getIdOffre();
+
+        MailRequest mailRequest = new MailRequest(o.getPartenaire().getUniversites().getNomUniv().toUpperCase() ,
+                o.getPartenaire().getUniversites().getEmail(), "Nouvelle Offre", "Notre entreprise, implantée à Tunis, est spécialisée dans le secteur des secteurs d’activité depuis  2015 années.\n" +
+                "Nos services ont par conséquent pu acquérir l’expérience et la compétence pour étudier, planifier, estimer le budget nécessaire à de telles opérations et ainsi vous transmettre un devis en 48 heures. \n"
+                ,"S'inscrire Maintenant", "http://www.esprit.tn" );
+        Universite uEmail;
+       // uEmail = this.iUniversiteService.findUnivByEmail(univ.getEmail());
+        uEmail = universiteRepository.findByEmail(o.getPartenaire().getUniversites().getEmail());
+       System.out.println(uEmail);
+        if (!(uEmail == null))
+            return null;
+        else {
+            emailService.sendEmail(mailRequest);
+
+            }
+
+            return o.getIdOffre();
     }
     @Override
     public Iterable<Offre> retrieveAllOffre() {return offreRepository.findAll();}
@@ -51,5 +84,23 @@ public class OffreServiceImp implements IoffreService{
         offre.setPartenaire(partenaire);
         offreRepository.save(offre);
     }
+
+
+    /**public void sendSimpleEmail(String to,String descriptionOffre) {
+
+        // Create a Simple MailMessage.
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(to);
+        message.setSubject("Nouveau Offre ");
+        message.setText("Bonjour Mr "+to +" Nouveau Offre: "+descriptionOffre);
+
+        // Send Message!
+        this.emailSender.send(message);
+
+    }*/
+
+
+
 
 }

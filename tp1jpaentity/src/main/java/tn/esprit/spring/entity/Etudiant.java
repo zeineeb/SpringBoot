@@ -27,10 +27,10 @@ public class Etudiant implements Serializable {
 
 // Constructeur et accesseurs (getters) et mutateurs (setters)
 
-    @OneToMany( mappedBy="etudiant")
+    @OneToMany( mappedBy="etudiant",cascade = CascadeType.ALL)
     private Set<Contrat> contrat;
 
-    @ManyToMany(mappedBy = "etudiants")
+    @ManyToMany(mappedBy = "etudiants",cascade = CascadeType.ALL)
     private Set<Equipe> equipes;
 
     @ManyToOne
