@@ -13,6 +13,7 @@ import java.util.Optional;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/UniversiteC")
 public class UniversiteController {
     @Autowired
@@ -21,38 +22,45 @@ public class UniversiteController {
     UniversiteRepository universiteRepository;
 
     @GetMapping("/")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Iterable<Universite>  GetAllUniversite(){
         return iUniversiteService.retrieveAllUniversite();
     }
     @GetMapping("/UniversiteById/{universite-id}")
-    public Optional< Universite > GetUniversitebyId(@PathVariable("universite-id") Long Id){
-        return iUniversiteService.findUniversiteById(Id);
+    @CrossOrigin(origins = "http://localhost:4200")
+    public Universite  GetUniversitebyId(@PathVariable("universite-id") Long Id){
+        return iUniversiteService.retrieveUniversite(Id);
     }
     @PostMapping("/addUniversite")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public void addUniversite(@RequestBody Universite universite) {
         iUniversiteService.ajouterUniversite(universite);
     }
 
     @PutMapping("/updateUniversite")
     @ResponseBody
-    public void updateUniversite(@RequestBody Universite universite) {
+    @CrossOrigin(origins = "http://localhost:4200")
+    public Universite updateUniversite(@RequestBody Universite universite  ) {
         iUniversiteService.updateUniversite(universite);
+        return universite;
     }
 
     @DeleteMapping("/deleteUniversite/{universite-id}")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deleteUniversite(@PathVariable("universite-id") Long universiteId ) {
         iUniversiteService.deleteUniversite(universiteId);
     }
 
     @PutMapping(value = "/affectationUni_dep/{Uni-id}/{dep-id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void affectationUniversiteDepartement(@PathVariable("Uni-id") Long UniId ,@PathVariable("dep-id") Long depId )
     {
         iUniversiteService.assignUniversiteToDepartement(UniId,depId);
     }
 
-    @GetMapping
+    @GetMapping("/sort")
     Page<Universite> SortUniversite(
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<String> sortBy

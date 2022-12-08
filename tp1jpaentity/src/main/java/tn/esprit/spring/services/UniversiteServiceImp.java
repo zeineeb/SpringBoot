@@ -41,7 +41,11 @@ public class UniversiteServiceImp implements IUniversiteService {
         universiteRepository.deleteById(id);}
 
     @Override
-    public Universite updateUniversite(Universite u) {return universiteRepository.save(u);}
+    public Universite updateUniversite(Universite u ) {
+
+        return universiteRepository.save(u);
+
+    }
 
     @Override
     public Universite retrieveUniversite(Long idUniversite) {

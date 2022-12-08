@@ -1,9 +1,7 @@
 package tn.esprit.spring.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +11,7 @@ import java.util.Set;
 @Table( name ="Partenaire")
 @Getter
 @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Partenaire implements Serializable {
@@ -28,9 +27,10 @@ public class Partenaire implements Serializable {
     @Enumerated(EnumType.STRING)
     Support support ;
 
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.EAGER)
    Universite universites;
-    @OneToMany( mappedBy="partenaire")
+    @JsonIgnore
+    @OneToMany( mappedBy="listpartenaire")
     private Set<Offre> offres;
 
 }

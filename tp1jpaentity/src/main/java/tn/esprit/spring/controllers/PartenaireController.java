@@ -16,13 +16,15 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/PartenaireC")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PartenaireController {
 
     @Autowired
     IpartenaireService ipartenaireService;
 
     @GetMapping("/")
-    public Iterable<Partenaire>  GetAllEtudiant(){
+    @CrossOrigin(origins = "http://localhost:4200")
+    public Iterable<Partenaire>  GetAllPatenaire(){
         return ipartenaireService.retrieveAllPartenaire();
     }
 
@@ -33,22 +35,34 @@ public class PartenaireController {
 
     @PostMapping("/addPartenaire")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public void addPartenaire(@RequestBody Partenaire Par) {
         ipartenaireService.ajouterPartenaire(Par);
     }
 
-    @PutMapping("/updatePartenaire")
+    @PutMapping("/updatePartenaire/{partenaire-id}")
     @ResponseBody
-    public void updatePartenaire(@RequestBody Partenaire Par) {
-        ipartenaireService.updatePartenaire(Par);
+    @CrossOrigin(origins = "http://localhost:4200")
+    public void updatePartenaire(@RequestBody Partenaire Par ,@PathVariable("partenaire-id") Long PartenairetId  ) {
+        ipartenaireService.updatePartenaire(Par, PartenairetId);
+    }
+    @PostMapping (value = "/affectationPartenaireUniversite/{partenaire-id}")
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    public Partenaire affectationPartenaireUniversite( @RequestBody Partenaire Par ,@PathVariable("partenaire-id") Long PartenairetId   )
+    {
+        Partenaire etudiant1 = ipartenaireService.AddAndAssignEvent(Par,PartenairetId);
+        return etudiant1;
     }
 
     @DeleteMapping("/deletePartenaire/{partenaire-id}")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deletePartenairet(@PathVariable("partenaire-id") Long PartenairetId ) {
         ipartenaireService.deletePartenaire(PartenairetId);
     }
     @PutMapping(value = "/affectationPartenaire_univer/{Par-id}/{uni-id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void affectationPartenaireUniversite(@PathVariable("Par-id") Long partId ,@PathVariable("uni-id") Long UniId )
     {
         ipartenaireService.assignPartenaireToUniversite(partId,UniId);
@@ -56,14 +70,16 @@ public class PartenaireController {
 
     @GetMapping("/retrieve-all-partenaire-stats")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public Map<String, Integer> statistiqueProduit() {
         Map<String, Integer> listPatenaire = ipartenaireService.statistiquePartenaire();
         return listPatenaire;
     }
 
-    @GetMapping("/search")
-    public List<Partenaire> viewHomePage( String keyword) {
-        List<Partenaire> listPatenaire = ipartenaireService.search(keyword);
+    @GetMapping("/search/{x}")
+    @CrossOrigin(origins = "http://localhost:4200")
+  public Iterable<Partenaire> viewHomePage( @PathVariable("x") String keyword) {
+        Iterable<Partenaire> listPatenaire = ipartenaireService.search(keyword);
 return listPatenaire;
     }
 

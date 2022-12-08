@@ -4,6 +4,7 @@ package tn.esprit.spring.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.spring.entity.Offre;
 import tn.esprit.spring.entity.Partenaire;
 import tn.esprit.spring.entity.Universite;
@@ -37,7 +38,17 @@ public class PartenaireServiceImp implements IpartenaireService{
         partenaireRepository.deleteById(id);}
 
     @Override
-    public Partenaire updatePartenaire(Partenaire p) {return partenaireRepository.save(p);}
+    public Partenaire updatePartenaire(Partenaire p , Long idPar) {
+       Partenaire par = partenaireRepository.findById(idPar).get();
+       par.setNomPartenaire(p.getNomPartenaire());
+        par.setLocalisation(p.getLocalisation());
+        par.setNumTelPar(p.getNumTelPar());
+        par.setMobilite(p.isMobilite());
+        par.setSupport(p.getSupport());
+        par.setEmail(p.getEmail());
+        par.setUniversites(p.getUniversites());
+
+        return partenaireRepository.save(par);}
 
     @Override
     public Partenaire retrievePartenaire(Long idPartenaire) {
@@ -77,4 +88,15 @@ public class PartenaireServiceImp implements IpartenaireService{
         //System.out.println(partenaireRepository.stats());
         return graphData   ;
     }
+
+    @Transactional
+   public Partenaire AddAndAssignEvent(Partenaire p ,Long idUniversite){
+
+        Universite univ =universiteRepository.findById(idUniversite).orElse(null);
+        p.setUniversites(univ);
+        partenaireRepository.save(p);
+      return partenaireRepository.save(p);
+
+   }
+
 }

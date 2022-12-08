@@ -42,20 +42,14 @@ public class OffreServiceImp implements IoffreService{
         offreRepository.save(o);
         log.info("Ajouter Offre");
 
-        MailRequest mailRequest = new MailRequest(o.getPartenaire().getUniversites().getNomUniv().toUpperCase() ,
-                o.getPartenaire().getUniversites().getEmail(), "Nouvelle Offre", "Notre entreprise, implantée à Tunis, est spécialisée dans le secteur des secteurs d’activité depuis  2015 années.\n" +
+        MailRequest mailRequest = new MailRequest("Esprit",
+                "zeineb.hamdi@esprit.tn", "Nouvelle Offre", "Notre entreprise, implantée à Tunis, est spécialisée dans le secteur des secteurs d’activité depuis  2015 années.\n" +
                 "Nos services ont par conséquent pu acquérir l’expérience et la compétence pour étudier, planifier, estimer le budget nécessaire à de telles opérations et ainsi vous transmettre un devis en 48 heures. \n"
-                ,"S'inscrire Maintenant", "http://www.esprit.tn" );
-        Universite uEmail;
-       // uEmail = this.iUniversiteService.findUnivByEmail(univ.getEmail());
-        uEmail = universiteRepository.findByEmail(o.getPartenaire().getUniversites().getEmail());
-       System.out.println(uEmail);
-        if (!(uEmail == null))
-            return null;
-        else {
+                ,"S'inscrire Maintenant", "http://localhost:4200" );
+
             emailService.sendEmail(mailRequest);
 
-            }
+
 
             return o.getIdOffre();
     }
@@ -81,7 +75,7 @@ public class OffreServiceImp implements IoffreService{
 
         Offre offre = offreRepository.findById(idOffre).orElse(null);
         Partenaire partenaire = partenaireRepository.findById(idPar).orElse(null);
-        offre.setPartenaire(partenaire);
+        offre.setListpartenaire(partenaire);
         offreRepository.save(offre);
     }
 

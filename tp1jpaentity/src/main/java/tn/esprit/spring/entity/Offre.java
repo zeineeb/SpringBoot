@@ -22,9 +22,8 @@ public class Offre implements Serializable {
     private Long idOffre; // Clé primaire
     private String nomOffre;
     private String descriptionOffre;
-    private String TypeOffre;
+    private String typeOffre;
 
     @ManyToOne
-    @JsonIgnore
-     Partenaire partenaire;
+     Partenaire listpartenaire;
 }

@@ -17,6 +17,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/OffreC")
+@CrossOrigin(origins = "http://localhost:4200")
 public class OffreController {
 
     @Autowired
@@ -25,29 +26,34 @@ public class OffreController {
     @Autowired
     EmailService emailService;
     @GetMapping("/")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Iterable<Offre>  GetAllOffre(){
         return ioffreService.retrieveAllOffre();
     }
 
     @GetMapping("/retrieve-Offre/{Offre-id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Offre retrieveOffre(@PathVariable("Offre-id") Long OffreId) {
         return ioffreService.retrieveOffre(OffreId);
     }
 
     @PostMapping("/addOffre")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public void addOffre(@RequestBody Offre o ) {
         ioffreService.ajouterOffre(o);
     }
 
     @PutMapping("/updateOffre")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public void updatePOffre(@RequestBody Offre offre) {
         ioffreService.updateOffre(offre);
     }
 
     @DeleteMapping("/deleteOffre/{Offre-id}")
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deleteEtudiant(@PathVariable("Offre-id") Long OffreId ) {
         ioffreService.deleteOffre(OffreId);
     }
