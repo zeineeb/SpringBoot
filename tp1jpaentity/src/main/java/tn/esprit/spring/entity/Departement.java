@@ -1,28 +1,39 @@
 package tn.esprit.spring.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
-
-@Entity
-@Table( name ="Departement")
-@Getter
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Departement implements Serializable {
-
+@Entity
+@Table( name ="Departement")
+public class Departement implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name="idDepartement")
-    private Long idDepartement; // Clé primaire
-
+    @Column(name="idDepart")
+    private Long idDepart; // Clé primaire
     private String nomDepart;
-
-    @OneToMany( mappedBy="departement",cascade = CascadeType.ALL)
+/*
     @JsonIgnore
+    @OneToMany( )
     private Set<Etudiant> etudiants;
+
+    */
+
+    @OneToMany(mappedBy = "departement")
+    @JsonIgnore
+    List<Etudiant> etudiantList;
+
+    @OneToMany( mappedBy="departementsProf",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Professeur>   professeurs;
+
 
 }

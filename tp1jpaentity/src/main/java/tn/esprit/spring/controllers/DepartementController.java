@@ -9,44 +9,57 @@ import tn.esprit.spring.entity.Etudiant;
 import tn.esprit.spring.services.IDepartementService;
 
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/DepartementC")
 public class DepartementController {
 
     @Autowired
     IDepartementService iDepartementService;
 
-    @GetMapping("/")
+    @GetMapping("/getAll")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Iterable<Departement>  GetAllDepartement(){
         return iDepartementService.retrieveAllDepartement();
     }
     @GetMapping("/DepartementById/{departement-id}")
-    public Optional< Departement > GetDepartementbyId(@PathVariable("departement-id") Long Id){
+    @CrossOrigin(origins = "http://localhost:4200")
+    public  Departement  GetDepartementbyId(@PathVariable("departement-id") Long Id){
         return iDepartementService.findDepartementById(Id);
     }
-
-    @GetMapping("/DepartementByIdEtudaint/{departement-id}")
-    public Set<Etudiant> GetDepartementbyIdEtudiant(@PathVariable("departement-id") Long Idd){
-        return iDepartementService.getEtudiantsByDepar(Idd);
-    }
     @PostMapping("/addDepartement")
+    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public void addDepartement(@RequestBody Departement departement) {
         iDepartementService.ajouterDepartement(departement);
     }
 
     @PutMapping("/updateDepartement")
+    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public void updateDepartement(@RequestBody Departement departement) {
         iDepartementService.updateDepartement(departement);
     }
 
     @DeleteMapping("/deleteDepartement/{departement-id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public void deleteDepartement(@PathVariable("departement-id") Long departementId ) {
         iDepartementService.deleteDepartement(departementId);
+    }
+/*
+    @GetMapping("/getEtudiantsByDepartement/{id-depart}")
+    @ResponseBody
+    public void getEtudiantsByDepartement(@PathVariable("id-depart")Long departementId ) {
+        iDepartementService.getEtudiantsByDepar(departementId);
+    }
+
+ */
+    @GetMapping("/getEtudiantsByDepartement")
+    public List<Etudiant> getEtudiantsByDepartement(@RequestParam Long idDepartement) {
+        return iDepartementService.getEtudiantsByDepar(idDepartement);
     }
 }
