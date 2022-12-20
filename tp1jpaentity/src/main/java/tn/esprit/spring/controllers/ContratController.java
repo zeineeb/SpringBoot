@@ -1,6 +1,7 @@
 package tn.esprit.spring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entity.Contrat;
 import tn.esprit.spring.entity.Equipe;
@@ -45,6 +46,20 @@ public class ContratController {
 
     @GetMapping("/Get-Date/{dateDebut}/{dateFin}")
     public float GetDateBetween(@PathVariable("dateDebut") Date DateDebut,@PathVariable("dateFin") Date DateFin) {
-        return iContratService.getChiffreAffaireEntreDeuxDate(DateDebut,DateFin);
+        return iContratService.getChiffreAffaireEntreDeuxDate1(DateDebut,DateFin);
+    }
+
+    @GetMapping("/nbContratsValides/{DateDebutContrat}/{DateFinContrat}")
+    public Integer nbContratsValides(@PathVariable("DateDebutContrat") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date DateDebutContrat, @PathVariable("DateFinContrat")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date DateFinContrat){
+
+        return  iContratService.nbContratsValides(DateDebutContrat,DateFinContrat);
+    }
+    @GetMapping("/getChiffreAffaireEntreDeuxDate/{DateDebutContrat}/{DateFinContrat}")
+    public Float getChiffreAffaireEntreDeuxDate(@PathVariable("DateDebutContrat")
+                                                @DateTimeFormat (iso = DateTimeFormat.ISO.DATE)Date dateD,
+                                                @PathVariable("DateFinContrat")
+                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date dateF){
+
+        return  iContratService.getChiffreAffaireEntreDeuxDate(dateD,dateF);
     }
 }
