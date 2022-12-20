@@ -1,6 +1,7 @@
 package tn.esprit.spring.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,6 @@ public class Offre implements Serializable {
     private String descriptionOffre;
     private String typeOffre;
 
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.EAGER)
      Partenaire listpartenaire;
 }

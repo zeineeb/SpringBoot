@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface PartenaireRepository extends JpaRepository<Partenaire, Long> {
     @Query("SELECT p FROM Partenaire p WHERE p.nomPartenaire LIKE %?1%"
-
+            + " OR p.localisation LIKE %?1%"
+            + " OR p.email LIKE %?1%"
+            + " OR CONCAT(p.support, '') LIKE %?1%"
+            + " OR CONCAT(p.universites, '') LIKE %?1%"
+            + " OR CONCAT(p.numTelPar, '') LIKE %?1%"
     )
     public List<Partenaire> search(String keyword);
 

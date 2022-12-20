@@ -95,6 +95,11 @@ public class OffreServiceImp implements IoffreService{
     }*/
 
 
-
+    public List<Offre> search(String keyword) {
+        if (keyword != null) {
+            return offreRepository.search(keyword);
+        }
+        return offreRepository.findAll();
+    }
 
 }

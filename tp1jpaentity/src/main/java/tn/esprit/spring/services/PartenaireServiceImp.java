@@ -23,9 +23,11 @@ public class PartenaireServiceImp implements IpartenaireService{
     PartenaireRepository partenaireRepository;
     UniversiteRepository universiteRepository;
 
+
+
     @Override
     public Long ajouterPartenaire(Partenaire p) {
-        partenaireRepository.save(p);
+         partenaireRepository.save(p);
         log.info("Ajouter Offre");
         return p.getIdPartenaire();
     }

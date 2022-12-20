@@ -15,8 +15,9 @@ public interface IoffreService {
     Offre retrieveOffre(Long idOffre);
 
     public void deleteOffre(Long id);
-    Offre updateOffre(Offre o);
+    Offre updateOffre(Offre o );
     public void assignOffreToPartenaire( Long idOffre , Long idPartenaire);
+    public List<Offre> search(String keyword);
 
 
 }

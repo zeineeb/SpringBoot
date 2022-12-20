@@ -12,7 +12,7 @@ public interface IpartenaireService
     Partenaire retrievePartenaire(Long idPartenaire);
 
     public void deletePartenaire(Long id);
-    Partenaire updatePartenaire(Partenaire p, Long idPar);
+    Partenaire updatePartenaire(Partenaire p, Long idPar );
     public void assignPartenaireToUniversite( Long idPartenaire, Long idUniversite);
     public Map<String, Integer> statistiquePartenaire();
     public List<Partenaire> search(String keyword);

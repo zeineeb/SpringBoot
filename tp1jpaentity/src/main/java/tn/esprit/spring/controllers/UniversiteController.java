@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.entity.Pagepa;
+import tn.esprit.spring.entity.Partenaire;
 import tn.esprit.spring.entity.Universite;
 import tn.esprit.spring.repositories.UniversiteRepository;
 import tn.esprit.spring.services.IUniversiteService;
@@ -73,4 +75,34 @@ public class UniversiteController {
                 )
         );
     }
+
+    @GetMapping("/search/{x}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public Iterable<Universite> viewHomePage(@PathVariable("x") String keyword) {
+        Iterable<Universite> listUniversite = iUniversiteService.search(keyword);
+        return listUniversite;
+    }
+
+    @GetMapping("/findAllEPaginate")
+
+    public Pagepa getUniversites(
+                                @RequestParam Optional<Integer> page,
+                                @RequestParam Optional<Integer> size)
+    {
+        Page<Universite> universites = null;
+        universites= universiteRepository.findAll(
+                PageRequest.of(
+                        page.orElse(0),
+                        size.orElse(10)
+                )
+        );
+        Pagepa res = new Pagepa(universites.getContent(), universites.getTotalPages(),
+                universites.getNumber(), universites.getSize());
+
+        return res;
+    }
+
+
+
+
 }

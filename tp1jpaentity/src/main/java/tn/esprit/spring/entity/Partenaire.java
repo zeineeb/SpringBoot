@@ -30,7 +30,7 @@ public class Partenaire implements Serializable {
     @ManyToOne( fetch = FetchType.EAGER)
    Universite universites;
     @JsonIgnore
-    @OneToMany( mappedBy="listpartenaire")
+    @OneToMany( mappedBy="listpartenaire",cascade = CascadeType.ALL)
     private Set<Offre> offres;
 
 }

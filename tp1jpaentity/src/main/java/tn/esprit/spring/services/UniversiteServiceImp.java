@@ -5,11 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Departement;
+import tn.esprit.spring.entity.Partenaire;
 import tn.esprit.spring.entity.Universite;
 import tn.esprit.spring.repositories.DepartementRepository;
 import tn.esprit.spring.repositories.UniversiteRepository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -77,6 +79,11 @@ public class UniversiteServiceImp implements IUniversiteService {
         return universiteRepository.findByEmail(email);
 
     }
-
+    public List<Universite> search(String keyword) {
+        if (keyword != null) {
+            return universiteRepository.search(keyword);
+        }
+        return universiteRepository.findAll();
+    }
 
 }

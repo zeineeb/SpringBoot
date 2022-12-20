@@ -4,6 +4,7 @@ import tn.esprit.spring.entity.Equipe;
 import tn.esprit.spring.entity.Universite;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,4 +20,5 @@ public interface IUniversiteService {
     public Set<Departement> retrieveDepartementsByUniversite(Long idUniversite);
     public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate);
     public Universite findUnivByEmail(String email);
+    public List<Universite> search(String keyword);
 }
